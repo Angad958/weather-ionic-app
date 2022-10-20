@@ -1,20 +1,81 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      Blank
+      Weather App
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
 
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+   <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+ <div class="main">
+  <span class="city">Melbourne</span>
+  <br>
+  <span class="date">{{res.current.dt | dateFormatting}}</span>
+  <div class="icon">
+   <img  src="http://openweathermap.org/img/wn//{{res.current.weather[0].icon}}@2x.png" alt="">
   </div>
+  <span class="description">{{res.current.weather[0].main}}</span>
+  <span class="temperature">{{res.current.temp | number:'1.0-0'}}°</span>
+
+ </div>
+
+<ion-button (click)="btnClicked()" color="primary"  expand="block" routerLink="/home2">Click</ion-button>
+<!-- 7 Day forecast grid -->
+<ion-grid>
+  <!-- Day Row-->
+  <ion-row>
+   <ion-col class="day">{{res.daily[0].dt | day}}</ion-col>
+   <ion-col class="day">{{res.daily[1].dt | day}}</ion-col>
+   <ion-col class="day">{{res.daily[2].dt | day}}</ion-col>
+   <ion-col class="day">{{res.daily[3].dt | day}}</ion-col>
+   <ion-col class="day">{{res.daily[4].dt | day}}</ion-col>
+   <ion-col class="day">{{res.daily[5].dt | day}}</ion-col>
+   <ion-col class="day">{{res.daily[6].dt | day}}</ion-col>
+  </ion-row>
+  <!-- chances of precipitation-->
+  <ion-row>
+  <ion-col class="precipitation">{{res.daily[0].rain | number:'1.0-0'}}</ion-col>
+  <ion-col class="precipitation">{{res.daily[0].rain | number:'1.0-0'}}</ion-col>
+  <ion-col class="precipitation">{{res.daily[0].rain | number:'1.0-0'}}</ion-col>
+  <ion-col class="precipitation">{{res.daily[0].rain | number:'1.0-0'}}</ion-col>
+  <ion-col class="precipitation">{{res.daily[0].rain | number:'1.0-0'}}</ion-col>
+  <ion-col class="precipitation">{{res.daily[0].rain | number:'1.0-0'}}</ion-col>
+  <ion-col class="precipitation">{{res.daily[0].rain | number:'1.0-0'}}</ion-col>
+  </ion-row>
+  <!--weather icon -->
+  <ion-row>
+    <ion-col class="icon-sm">  <img  src="http://openweathermap.org/img/wn//{{res.daily[0].weather[0].icon}}@2x.png" alt=""></ion-col>
+    <ion-col class="icon-sm">  <img  src="http://openweathermap.org/img/wn//{{res.daily[1].weather[0].icon}}@2x.png" alt=""></ion-col>
+    <ion-col class="icon-sm">  <img  src="http://openweathermap.org/img/wn//{{res.daily[2].weather[0].icon}}@2x.png" alt=""></ion-col>
+    <ion-col class="icon-sm">  <img  src="http://openweathermap.org/img/wn//{{res.daily[3].weather[0].icon}}@2x.png" alt=""></ion-col>
+    <ion-col class="icon-sm">  <img  src="http://openweathermap.org/img/wn//{{res.daily[4].weather[0].icon}}@2x.png" alt=""></ion-col>
+    <ion-col class="icon-sm">  <img  src="http://openweathermap.org/img/wn//{{res.daily[5].weather[0].icon}}@2x.png" alt=""></ion-col>
+    <ion-col class="icon-sm">  <img  src="http://openweathermap.org/img/wn//{{res.daily[6].weather[0].icon}}@2x.png" alt=""></ion-col>
+  </ion-row>
+  <!--Max Temperature-->
+  <ion-row>
+    <ion-col class="hi-sm">{{res.daily[0].temp.max | number:'1.0-0'}}°c</ion-col>
+    <ion-col class="hi-sm">{{res.daily[1].temp.max | number:'1.0-0'}}°c</ion-col>
+    <ion-col class="hi-sm">{{res.daily[2].temp.max | number:'1.0-0'}}°c</ion-col>
+    <ion-col class="hi-sm">{{res.daily[3].temp.max | number:'1.0-0'}}°c</ion-col>
+    <ion-col class="hi-sm">{{res.daily[4].temp.max | number:'1.0-0'}}°c</ion-col>
+    <ion-col class="hi-sm">{{res.daily[5].temp.max | number:'1.0-0'}}°c</ion-col>
+    <ion-col class="hi-sm">{{res.daily[6].temp.max | number:'1.0-0'}}°c</ion-col>
+  </ion-row>
+  <!--Min Temperature-->
+   <ion-row>
+    <ion-col class="hi-sm">{{res.daily[0].temp.min | number:'1.0-0'}}°c</ion-col>
+    <ion-col class="hi-sm">{{res.daily[1].temp.min | number:'1.0-0'}}°c</ion-col>
+    <ion-col class="hi-sm">{{res.daily[2].temp.min | number:'1.0-0'}}°c</ion-col>
+    <ion-col class="hi-sm">{{res.daily[3].temp.min | number:'1.0-0'}}°c</ion-col>
+    <ion-col class="hi-sm">{{res.daily[4].temp.min | number:'1.0-0'}}°c</ion-col>
+    <ion-col class="hi-sm">{{res.daily[5].temp.min | number:'1.0-0'}}°c</ion-col>
+    <ion-col class="hi-sm">{{res.daily[6].temp.min | number:'1.0-0'}}°c</ion-col>
+  </ion-row>
+</ion-grid>
 </ion-content>
